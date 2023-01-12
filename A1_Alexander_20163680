@@ -1,0 +1,67 @@
+---
+title: "A1_Alexander_20163680"
+Name: "Jeremie Alexander"
+Date: "January 11th, 2023" 
+output: html_document
+---
+
+
+[Link to Github Repository](https://github.com/JeremieAlex/BIOL432_Assignment1)
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Load required libraries and theme for plots
+
+```{r}
+library("dplyr")
+library("ggplot2")
+source("ThemePub.R")
+```
+
+
+Create measurements data frame using the dataGenerato.R script. This will create a data frame with 100 observations from 5 different species combined. Each species will contain a Limb_Width and Limb_Length value as well as 1 of 3 observers randomly assigned to it. The width and length values are taken from a normal distribution with mean 50 cm (sd = 15) and mean 90 cm (sd 30), respectively. The script will then create a csv file with headers "Organism" "Limb_Width" "Limb_Length" "Observer".
+
+```{r}
+source('dataGenerato.R')
+```
+
+
+Using the Limb_length and Limb_Width columns in the measurements table, the volumeEstimato.R script calculates Limb Volume by using the equation volume=((pi)*(Limb_Width/2)*(Limb_Length^2). This script will then create a new measurement data frame with an added column for volume and then create a csv file that will overwrite the original measurement file created the previous dataGenerato.R script.  
+
+```{r}
+source('volumeEstimato.R')
+```
+
+
+Now that the measurement.csv has a volume column, we can load into session for future analysis.
+
+```{r}
+MeasureData = read.csv("~/Documents/BIOL_432/BIOL432_Assignment1/measurements.csv")
+```
+
+Sort the data based on species name, observer name, and limb volume.
+
+```{r}
+SortedMeasureData = MeasureData %>% arrange(Organism, Observer, volume)
+```
+
+Create a table showing the average volume for each species
+
+```{r}
+SpeciesvolMeans = SortedMeasureData %>% group_by(Organism) %>% summarise(Mean_Volume_cm3 = mean(volume))
+SpeciesvolMeans
+```
+Table 1. Mean limb volume in cm^3 for each of the 5 species of interest. Volume was calculated according to the equation for cylinder volume (volume=((pi)*(Limb_Width/2)*(Limb_Length^2)). 
+
+
+Create a table showing the number of observations (i.e. rows) for each combination of species and observer.
+
+```{r}
+SpeciesObsCombos = MeasureData %>% group_by(Organism, Observer) %>% summarize(number_observations = n())
+SpeciesObsCombos
+```
+
