@@ -8,7 +8,7 @@ library("dplyr")
 
 #Create new measurement file with volume column. Use volume of cylinder equation pi*r*h^2 (r = Limb_Width/2, h = Limb_Length)
 
-measurements = Data %>% mutate(volume=((pi)*(Limb_Width/2)*(Limb_Length^2)))
+measurements = Data %>% mutate(volume=((pi)*((Limb_Width/2)^2)*(Limb_Length))
 
 #Check new data frame to ensure it is properly formatted
 
