@@ -4,7 +4,7 @@ Organism = sample(c("Phascolarctos cinereus", "Vombatus ursinus", "Macropus giga
 
 #Create a vector with 100 limb width values randomly selected from a normal distribution
 
-Limb_Width = rnorm(100, mean = 50, sd = 15)
+Limb_Width = rnorm(100, mean = 10, sd = 3)
 
 #Ensure all values are non-zero and positive
 
@@ -12,7 +12,7 @@ Limb_Width > 0
 
 #Create a vector with 100 limb length values randomly selected from a normal distribution
 
-Limb_Length = rnorm(100, mean = 90, sd = 30)
+Limb_Length = rnorm(100, mean = 30, sd = 10)
 
 #Ensure all values are non-zero and positive
 
